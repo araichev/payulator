@@ -1,0 +1,91 @@
+body {
+    max-width: 700px;
+    margin: 0px auto 20px auto;
+    font-size: 12pt;
+    font-family: Helvetica, Arial, Sans Serif;
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+}
+
+h1 {
+    margin-bottom: 1em;
+}
+h2::before {
+    content: '>';
+    margin-left: -1em;
+    padding-right: 0.4em;
+    color: #ccc;
+}
+
+section:nth-child(1) > section {
+    margin-top: 2.5em;
+}
+table {
+    width: 100% !important;
+}
+td:nth-child(1) {
+    width: 30%;
+}
+td:nth-child(2) {
+    width: 70%;
+}
+em {
+    font-weight: bold
+    font-style: normal
+}
+ol, ul {
+    padding-left: 1em;
+}
+ol.loweralpha, ul.loweralpha {
+    list-style-type: lower-alpha;
+}
+ol.lowerroman, ul.lowerroman {
+    list-style-type: lower-roman;
+}
+blockquote {
+	margin-left: 1em;
+    font: inherit;
+    border: 0;
+}
+.pagebreak {
+    break-before:always
+}
+
+/* Print styling */
+@media print {
+    #content, #page {
+        margin: 0;
+        float: none;
+    }
+
+    @page {
+		margin: 2cm;
+    	font-family: Helvetica, Arial, Sans Serif;
+	    @bottom-right {
+	        content: "Page " counter(page) " of " counter(pages);
+	    }
+
+	}
+	/* Fix Bootstrap striped table print */
+	tr:nth-child(odd) td {
+		background-color: #f8f9fa !important;
+		-webkit-print-color-adjust: exact;
+	}
+    a {
+        page-break-inside:avoid
+    }
+    blockquote {
+        page-break-inside: avoid;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after:avoid;
+        page-break-inside:avoid;
+    }
+    img {
+        page-break-inside:avoid;
+        page-break-after:avoid;
+    }
+    table, pre { page-break-inside:avoid }
+    ul, ol, dl  { page-break-before:avoid }
+
+}
