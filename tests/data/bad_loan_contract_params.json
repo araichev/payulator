@@ -1,0 +1,16 @@
+{
+    "code": "EBT-20210511",
+    "borrower_email": "maurice@ebiketeam.co.nz",
+    "borrowers": ["Electric Bike Team Limited (NZCN 6043355)"],
+    "guarantors": ["Maurice Wells (5/5 Edison Pl, St Heliers, Auckland 1071)"],
+    "principal": 60000,
+    "interest_rate": 0.1,
+    "kind": "interest only",
+    "num_payments": 12,
+    "num_payments_interest_only": 12,
+    "payment_freq": "monthly",
+    "compounding_freq": "monthly",
+    "first_payment_date": "2021-06-06",
+    "fee": 0,
+    "securities": ["A security interest over all present and after acquired property of the Borrower"]
+}

@@ -1,8 +1,8 @@
 import pandas as pd
 import pytest
 
-from .context import merriweather_py
-from merriweather_py import *
+from .context import payulator
+from payulator import *
 
 
 def test_freq_to_num():

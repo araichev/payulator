@@ -1,7 +1,7 @@
 import pytest
 
-from .context import merriweather_py, DATA_DIR
-from merriweather_py import *
+from .context import payulator, DATA_DIR
+from payulator import *
 
 
 def test_validate():

@@ -1,12 +1,12 @@
-Merriweather Py
+Payulator
 ***************
-A Python 3.9+ project that computes loan payments, makes loan contracts, etc. for Merriweather.
+A Python 3.9+ package to compute loan payments, make loan contracts, etc. for Merriweather.
 Inspired by the business loan calculator at `Calculator.net <https://www.calculator.net/business-loan-calculator.html>`_.
 
 
 Installation
 ============
-``poetry add git+ssh://git@gitlab.com/merriweather/merriweather_py``
+``poetry add git+ssh://git@gitlab.com/merriweather/payulator``
 
 
 Usage
@@ -21,12 +21,12 @@ Authors
 
 Documentation
 =============
-On Github Pages `here <https://araichev.gitlab.io/payulator_docs/>`_.
+Will publish on Gitlab `here <https://araichev.gitlab.io/payulator_docs/>`_.
 
 
 Changes
 =======
 
-1.0.0, 2021-11-24
+1.0.0, 2021-11-25
 -----------------
 - First release based on previous work.
