@@ -179,9 +179,9 @@ class Loan:
 
         return Loan(**attrs)
 
-    def summarize(self, decimals: int = 2) -> dict:
+    def payments(self, decimals: int = 2) -> dict:
         """
-        Create a payment schedule etc. for this InterestOnlyLoan.
+        Create a payment schedule etc. for this Loan.
         Return a dictionary with the following keys and values.
 
         - ``"payment_schedule"``: DataFrame; schedule of loan payments
@@ -330,8 +330,8 @@ class Loan:
 
         else:
             # Combination loan
-            iops = self.interest_only_part().summarize(decimals=None)
-            aps = self.amortized_part().summarize(decimals=None)
+            iops = self.interest_only_part().payments(decimals=None)
+            aps = self.amortized_part().payments(decimals=None)
 
             # Combine payment schedules
             f_io = iops["payment_schedule"].copy()
