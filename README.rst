@@ -27,9 +27,10 @@ Will publish on Gitlab `here <https://araichev.gitlab.io/payulator_docs/>`_.
 Changes
 =======
 
-2.0.0, 2021-??-??
+2.0.0, 2021-12-28
 -----------------
-- Breaking: Changed ``summarize()`` to ``payments()``.
+- Major refactor.
+- Added a notebook to email payment schedules.
 
 
 1.0.0, 2021-11-25
