@@ -85,25 +85,24 @@ def test_aggregate_payment_schedules():
         interest_rate=0.05,
         compounding_freq="quarterly",
         payment_freq="monthly",
-        num_payments=3*12,
+        num_payments=3 * 12,
         num_payments_interest_only=0,
         fee=10,
         first_payment_date=first_payment_date,
-    ).summarize()
+    ).payments()
     B = Loan(
         code="B",
         principal=1000,
         interest_rate=0.05,
         compounding_freq="quarterly",
         payment_freq="monthly",
-        num_payments=3*12,
+        num_payments=3 * 12,
         num_payments_interest_only=0,
         fee=10,
         first_payment_date=first_payment_date,
-    ).summarize()
+    ).payments()
     f = aggregate_payment_schedules(
-        [A["payment_schedule"], B["payment_schedule"]],
-        freq="Y"
+        [A["payment_schedule"], B["payment_schedule"]], freq="Y"
     )
     assert set(f.columns) == {
         "payment_date",

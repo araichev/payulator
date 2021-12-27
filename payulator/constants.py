@@ -1,3 +1,5 @@
+import os
+import pathlib as pl
 import numpy as np
 
 
@@ -14,3 +16,6 @@ NUM_BY_FREQ = {
     "daily": 365,
     "continuously": np.inf,
 }
+
+ROOT = pl.Path(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+THEME_DIR = ROOT / "payulator" / "theme"

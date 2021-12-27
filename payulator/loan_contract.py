@@ -1,4 +1,3 @@
-import os
 import pathlib as pl
 from dataclasses import dataclass
 from typing import Iterable, Optional
@@ -12,10 +11,8 @@ import voluptuous as vt
 import jinja2
 import weasyprint as wp
 
+from . import constants as cs
 from .loan import Loan
-
-ROOT = pl.Path(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-THEME_DIR = ROOT / "payulator" / "theme"
 
 
 @dataclass
@@ -23,6 +20,7 @@ class LoanContract(Loan):
     """
     Represents a loan contract.
     """
+
     date: str  # date of contract
     borrowers: Iterable[str]
     borrower_email: str
@@ -46,10 +44,7 @@ class LoanContract(Loan):
         Otherwise raise a Voluptuous Invalid error.
         """
         # Loan keys
-        Loan.validate({
-            k: v for k, v in params.items()
-            if k in Loan.true_fields()
-        })
+        Loan.validate({k: v for k, v in params.items() if k in Loan.true_fields()})
         # Remaining keys
         schema = vt.Schema(
             {
@@ -63,10 +58,7 @@ class LoanContract(Loan):
             },
             required=True,
         )
-        schema({
-            k: v for k, v in params.items()
-            if k in schema.schema
-        })
+        schema({k: v for k, v in params.items() if k in schema.schema})
 
         return params
 
@@ -85,18 +77,13 @@ class LoanContract(Loan):
         # Derive 'kind' attributes
         self.set_kind()
 
-
-    def to_rst(self, out_path:Optional[str]=None):
+    def to_rst(self, out_path: Optional[str] = None):
         """
         Return a RST version (string) of this loan contract.
         If a file path is given, then save to there instead.
         """
         # Set context dict
-        a = {
-            k: v
-            for k, v in self.summarize().items()
-            if k != "payment_schedule"
-        }
+        a = {k: v for k, v in self.payments().items() if k != "payment_schedule"}
         if self.kind == "interest_only":
             loan_type = "interest-only"
         elif self.kind == "amortized":
@@ -112,11 +99,11 @@ class LoanContract(Loan):
         context = self.__dict__ | a | b
 
         if self.kind == "amortized":
-            template_path = THEME_DIR/"amortized_loan_contract.rst"
+            template_path = cs.THEME_DIR / "amortized_loan_contract.rst"
         elif self.kind == "interest_only":
-            template_path = THEME_DIR/"interest_only_loan_contract.rst"
+            template_path = cs.THEME_DIR / "interest_only_loan_contract.rst"
         elif self.kind == "combination":
-            template_path = THEME_DIR/"combination_loan_contract.rst"
+            template_path = cs.THEME_DIR / "combination_loan_contract.rst"
 
         template_path = pl.Path(template_path)
         env = jinja2.Environment(
@@ -135,7 +122,7 @@ class LoanContract(Loan):
         else:
             return rst
 
-    def to_html(self, out_path:Optional[str]=None) -> str:
+    def to_html(self, out_path: Optional[str] = None) -> str:
         """
         Return an HTML version (string) of this contract.
         Use the RST version produced by :func:`to_rst` and rst2html5.py.
@@ -147,7 +134,7 @@ class LoanContract(Loan):
             name = "contract"
 
             rst = self.to_rst()
-            with (root/f"{name}.rst").open("w") as tgt:
+            with (root / f"{name}.rst").open("w") as tgt:
                 tgt.write(rst)
 
             args = [
@@ -155,17 +142,16 @@ class LoanContract(Loan):
             ]
 
             stylesheet_paths = [
-                THEME_DIR/"css"/"bootstrap-4.3.1.min.css",
-                THEME_DIR/"css"/"style.css",
+                cs.THEME_DIR / "css" / "bootstrap-4.3.1.min.css",
+                cs.THEME_DIR / "css" / "style.css",
             ]
             for path in stylesheet_paths:
                 arg = str(path.resolve())
                 args.append(f"--stylesheet-inline={arg}")
 
-            args.extend([
-                f"{name}.rst",
-                f"{name}.html",
-            ])
+            args.extend(
+                [f"{name}.rst", f"{name}.html",]
+            )
 
             cp = sp.run(
                 args,
@@ -179,10 +165,10 @@ class LoanContract(Loan):
 
             if out_path is not None:
                 # Copy to out_path
-                shutil.copy(root/f"{name}.html", pl.Path(out_path))
+                shutil.copy(root / f"{name}.html", pl.Path(out_path))
 
             else:
-                with (root/f"{name}.html").open() as src:
+                with (root / f"{name}.html").open() as src:
                     html = src.read()
 
                 return html
@@ -200,7 +186,7 @@ class LoanContract(Loan):
             }}
             """
 
-    def to_pdf(self, out_path:Optional[str]=None):
+    def to_pdf(self, out_path: Optional[str] = None):
         """
         Return a PDF version (string) of this loan contract.
         If a file path is given, then save to there instead.
@@ -214,18 +200,21 @@ class LoanContract(Loan):
 
             if out_path is not None:
                 (
-                    wp.HTML(filename=html_path)
-                    .write_pdf(pl.Path(out_path), stylesheets=stylesheets)
+                    wp.HTML(filename=html_path).write_pdf(
+                        pl.Path(out_path), stylesheets=stylesheets
+                    )
                 )
             else:
                 (
-                    wp.HTML(filename=html_path)
-                    .write_pdf(html_path, stylesheets=stylesheets)
+                    wp.HTML(filename=html_path).write_pdf(
+                        html_path, stylesheets=stylesheets
+                    )
                 )
-                with pl.Path(html_path).open('rb') as src:
+                with pl.Path(html_path).open("rb") as src:
                     pdf = src.read()
 
                 return pdf
+
 
 def read_loan_contract(path: pl.PosixPath) -> "LoanContract":
     """
@@ -246,14 +235,11 @@ def read_loan_contract(path: pl.PosixPath) -> "LoanContract":
     # Parse some
     for key in ["date", "first_payment_date"]:
         if key in params:
-            params[key] = dt.datetime.strptime(
-                params[key], "%Y-%m-%d"
-            ).date()
+            params[key] = dt.datetime.strptime(params[key], "%Y-%m-%d").date()
 
     # Prune parameters and validate
-    pruned_params = LoanContract.validate({
-        k: v for k, v in params.items()
-        if k in LoanContract.true_fields()
-    })
+    pruned_params = LoanContract.validate(
+        {k: v for k, v in params.items() if k in LoanContract.true_fields()}
+    )
 
     return LoanContract(**pruned_params)

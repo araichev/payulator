@@ -123,7 +123,7 @@ def test_amortized_part():
             assert v == getattr(loan, k)
 
 
-def test_summarize():
+def test_payments():
     # Interest only
     loan = Loan(
         code="",
@@ -136,7 +136,7 @@ def test_summarize():
         fee=13,
         first_payment_date=dt.date(2018, 1, 1),
     )
-    s = loan.summarize()
+    s = loan.payments()
     expect_keys = {
         "payment_schedule",
         "periodic_payment",
@@ -151,7 +151,6 @@ def test_summarize():
     assert round(s["interest_and_fee_total"], 2) == 25
     assert isinstance(s["first_payment_date"], dt.date)
     assert isinstance(s["last_payment_date"], dt.date)
-
 
     # Check payment schedule
     f = s["payment_schedule"]
@@ -183,7 +182,7 @@ def test_summarize():
         fee=10,
         first_payment_date=dt.date(2018, 1, 1),
     )
-    s = loan.summarize()
+    s = loan.payments()
     assert set(s.keys()) == {
         "payment_schedule",
         "periodic_payment",
@@ -228,7 +227,7 @@ def test_summarize():
         fee=10,
         first_payment_date=dt.date(2018, 1, 1),
     )
-    s = loan.summarize()
+    s = loan.payments()
     # Check non-payment schedule items
     assert set(s.keys()) == {
         "payment_schedule",
@@ -240,8 +239,8 @@ def test_summarize():
         "first_payment_date",
         "last_payment_date",
     }
-    iops = loan.interest_only_part().summarize()
-    aps = loan.amortized_part().summarize()
+    iops = loan.interest_only_part().payments()
+    aps = loan.amortized_part().payments()
     assert set(s["periodic_payment"].keys()) == {"interest_only", "amortized"}
     assert s["interest_and_fee_total"] == (
         iops["interest_and_fee_total"] + aps["interest_and_fee_total"]
