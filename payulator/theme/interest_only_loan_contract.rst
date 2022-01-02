@@ -43,7 +43,7 @@ Loan Terms
     * - **Payment Schedule**
       - {{ num_payments }} consecutive monthly payments of {{ "{:,.2f}$".format(periodic_payment) }} begining on {{ first_payment_date }} and ending on {{ last_payment_date }} plus one payment of {{ "{:,.0f}$".format(principal) }} on {{ last_payment_date }}. The Administration Fee is deducted from the Loan Amount on the Drawdown Date
     * - **Payment Account**
-      - All payments must be made to the Kiwibank bank account of Merriweather Limited at 38-9019-0508016-00
+      - All payments must be made to the Kiwibank bank account of Merriweather Limited at 38-9019-0508016-01
     * - **Default Interest Rate**
       - The Annual Interest Rate plus 10%
     * - **Securities**
