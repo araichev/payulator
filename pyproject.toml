@@ -1,28 +1,28 @@
 [tool.poetry]
 name = "payulator"
-version = "2.0.1"
+version = "2.0.2"
 description = "A Python 3.9+ loan calculator"
 authors = ["Alex Raichev <alex@raichev.net>"]
 readme = "README.rst"
 license = "Proprietary"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-pandas = "<2"
-voluptuous = "<1"
+python = ">=3.9, <4.0"
+pandas = ">=1"
+voluptuous = ">=0"
 weasyprint = "^53.4"
-Jinja2 = "^3.0.3"
-rst2html5 = "^2.0"
-python-dotenv = "^0.19.2"
+Jinja2 = ">=3.0.3"
+rst2html5 = ">=2.0"
+python-dotenv = ">=0.19.2"
 
 [tool.poetry.dev-dependencies]
-jupyter = "^1.0"
+jupyter = ">=1.0"
 pytest = "*"
-black = "=19.3b0"
+black = ">=19.3b0"
 pre-commit = "*"
-publish_sphinx_docs = "^1.0"
+publish_sphinx_docs = ">=1.0"
 sphinx = "*"
-nbstripout = "^0.5.0"
+nbstripout = ">=0.5.0"
 
 [build-system]
 requires = ["poetry>=1.0"]
