@@ -27,6 +27,11 @@ Will publish on Gitlab `here <https://araichev.gitlab.io/payulator_docs/>`_.
 Changes
 =======
 
+2.0.2, 2022-05-24
+-----------------
+- Updated tax notebook.
+
+
 2.0.1, 2021-01-03
 -----------------
 - Corrected bank account number in loan contracts.

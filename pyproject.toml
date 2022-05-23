@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "payulator"
-version = "2.0.1"
+version = "2.0.2"
 description = "A Python 3.9+ loan calculator"
 authors = ["Alex Raichev <alex@raichev.net>"]
 readme = "README.rst"
