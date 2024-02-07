@@ -39,9 +39,9 @@ Loan Terms
     * - **Total Amount of Payments**
       - {{ "{:,.2f}$".format(payment_total) }}
     * - **Method of Calculating Interest**
-      - Interest charges are calculated by multiplying the unpaid balance of the loan amount at the end of the day by a daily interest rate equal to the Annual Interest Rate divided by 365. Interest is charged monthly.
+      - Interest charges are calculated by multiplying the unpaid balance of the loan amount at the end of the day by a daily interest rate equal to the Annual Interest Rate divided by 365. Interest is charged {{ payment_freq }}.
     * - **Payment Schedule**
-      - {{ num_payments }} consecutive monthly payments of {{ "{:,.2f}$".format(periodic_payment) }} begining on {{ first_payment_date }} and ending on {{ last_payment_date }} plus one payment of {{ "{:,.0f}$".format(principal) }} on {{ last_payment_date }}. The Administration Fee is deducted from the Loan Amount on the Drawdown Date
+      - {{ num_payments }} consecutive {{ payment_freq }} payments of {{ "{:,.2f}$".format(periodic_payment) }} begining on {{ first_payment_date }} and ending on {{ last_payment_date }} plus one payment of {{ "{:,.0f}$".format(principal) }} on {{ last_payment_date }}. The Administration Fee is deducted from the Loan Amount on the Drawdown Date
     * - **Payment Account**
       - All payments must be made to the Kiwibank bank account of Merriweather Limited at 38-9019-0508016-01
     * - **Default Interest Rate**
@@ -160,7 +160,7 @@ General Terms
 
 4.4 The Lender may, without prior notice or demand, set-off or reduce any obligation (of any type and on any account whatsoever) that it has to the Borrower, against any sum or obligation or debt payable by the Borrower to the Lender (whether under this Agreement or not and whether such liability is actual or contingent, primary or collateral, joint or several). The Lender may exercise its rights under this clause irrespective of whether or not payment by the Borrower is due to the Lender under this Agreement.
 
-4.5 If the Borrower does not make any payment (including a payment of interest) due under this Agreement on the due date, the Borrower must pay interest at the Default Interest Rate on the payment due and any other amounts payable pursuant to this Agreement (both before and after judgment) for the period from the due date until the actual date of payment. Default Interest will accrue daily, and will be compounded monthly and will itself be added to and form part of the Loan, provided that the capitalisation of unpaid interest in accordance with this clause will not prejudice the Lender’s rights and remedies in respect of unpaid interest being a default under this Agreement. This clause is without prejudice to any other rights and remedies of the Lender.
+4.5 If the Borrower does not make any payment (including a payment of interest) due under this Agreement on the due date, the Borrower must pay interest at the Default Interest Rate on the payment due and any other amounts payable pursuant to this Agreement (both before and after judgment) for the period from the due date until the actual date of payment. Default Interest will accrue daily, and will be compounded {{ payment_freq }} and will itself be added to and form part of the Loan, provided that the capitalisation of unpaid interest in accordance with this clause will not prejudice the Lender’s rights and remedies in respect of unpaid interest being a default under this Agreement. This clause is without prejudice to any other rights and remedies of the Lender.
 
 
 5. Undertakings

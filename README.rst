@@ -27,6 +27,11 @@ Will publish on Gitlab `here <https://araichev.gitlab.io/payulator_docs/>`_.
 Changes
 =======
 
+2.0.3, 2024-02-08
+-----------------
+- Replaced 'monthly' in contract templates with payment frequency of loan contract.
+- Updated dependencies and tested with Python 3.11.
+
 2.0.2, 2022-05-24
 -----------------
 - Updated tax notebook.

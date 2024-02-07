@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "payulator"
-version = "2.0.2"
+version = "2.0.3"
 description = "A Python 3.9+ loan calculator"
 authors = ["Alex Raichev <alex@raichev.net>"]
 readme = "README.rst"
@@ -10,20 +10,26 @@ license = "Proprietary"
 python = ">=3.9, <4.0"
 pandas = ">=1"
 voluptuous = ">=0"
-weasyprint = "^53.4"
+weasyprint = ">=53.4"
 Jinja2 = ">=3.0.3"
 rst2html5 = ">=2.0"
 python-dotenv = ">=0.19.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 jupyter = ">=1.0"
 pytest = "*"
-black = ">=19.3b0"
 pre-commit = "*"
-publish_sphinx_docs = ">=1.0"
-sphinx = "*"
+black = ">=19.3b0"
 nbstripout = ">=0.5.0"
+ruff = ">=0.2.1"
+sphinx = "*"
+
+[tool.ruff]
+# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
+select = ["E", "F"]
+ignore = ["E501", "E731", "F401", "F403"]
 
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"
+
