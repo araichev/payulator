@@ -90,9 +90,10 @@ class LoanContract(Loan):
             loan_type = "amortized"
         elif self.kind == "combination":
             loan_type = "interest-only then amortized"
+        periods = f"{cs.NOUN_BY_FREQ[self.payment_freq]}s"
         b = {
-            "term": f"{self.num_payments} months",
-            "term_interest_only": f"{self.num_payments_interest_only} months",
+            "term": f"{self.num_payments} {periods}",
+            "term_interest_only": f"{self.num_payments_interest_only} {periods}",
             "interest_rate_pc": f"{100*self.interest_rate}",
             "loan_type": loan_type,
         }
@@ -150,7 +151,10 @@ class LoanContract(Loan):
                 args.append(f"--stylesheet-inline={arg}")
 
             args.extend(
-                [f"{name}.rst", f"{name}.html",]
+                [
+                    f"{name}.rst",
+                    f"{name}.html",
+                ]
             )
 
             cp = sp.run(
