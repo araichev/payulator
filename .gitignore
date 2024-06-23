@@ -1,5 +1,6 @@
 notebooks/prototyping.ipynb
 .pytest_cache/
+.ruff/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

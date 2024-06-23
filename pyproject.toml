@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "payulator"
-version = "2.0.3"
+version = "2.0.4"
 description = "A Python 3.9+ loan calculator"
 authors = ["Alex Raichev <alex@raichev.net>"]
 readme = "README.rst"
@@ -17,17 +17,17 @@ python-dotenv = ">=0.19.2"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = ">=1.0"
-pytest = "*"
-pre-commit = "*"
+pytest = ">=6"
+pre-commit = ">=0.1"
 black = ">=19.3b0"
 nbstripout = ">=0.5.0"
 ruff = ">=0.2.1"
-sphinx = "*"
+sphinx = ">=0.1"
 
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = ["E", "F"]
-ignore = ["E501", "E731", "F401", "F403"]
+ignore = ["E402", "E501", "E731", "E741", "F401", "F403"]
 
 [build-system]
 requires = ["poetry>=1.0"]

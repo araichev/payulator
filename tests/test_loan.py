@@ -1,7 +1,11 @@
+import datetime as dt
+from copy import copy
+
 import pytest
+import voluptuous as vt
 
 from .context import payulator, DATA_DIR
-from payulator import *
+import payulator as pl
 
 
 def test_validate():
@@ -16,26 +20,26 @@ def test_validate():
         "first_payment_date": dt.date(2018, 3, 24),
         "fee": 250,
     }
-    Loan.validate(params)
+    pl.Loan.validate(params)
 
     p = copy(params)
     p["fee"] = "whoops"
     with pytest.raises(vt.MultipleInvalid):
-        Loan.validate(p)
+        pl.Loan.validate(p)
 
     p = copy(params)
     p["interest_rate"] = -1
     with pytest.raises(vt.MultipleInvalid):
-        Loan.validate(p)
+        pl.Loan.validate(p)
 
     p = copy(params)
     p["first_payment_date"] = "2018-03-24"
     with pytest.raises(vt.MultipleInvalid):
-        Loan.validate(p)
+        pl.Loan.validate(p)
 
 
 def test_true_fields():
-    assert Loan.true_fields() == {
+    assert pl.Loan.true_fields() == {
         "code",
         "principal",
         "interest_rate",
@@ -49,7 +53,7 @@ def test_true_fields():
 
 
 def test_set_kind():
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=1000,
         interest_rate=0.05,
@@ -72,7 +76,7 @@ def test_set_kind():
 
 
 def test_interest_only_part():
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=1000,
         interest_rate=0.05,
@@ -84,7 +88,7 @@ def test_interest_only_part():
         first_payment_date=dt.date(2018, 1, 1),
     )
     io_loan = loan.interest_only_part()
-    assert isinstance(io_loan, Loan)
+    assert isinstance(io_loan, pl.Loan)
     for k, v in io_loan.__dict__.items():
         if k == "kind":
             assert v == "interest_only"
@@ -95,7 +99,7 @@ def test_interest_only_part():
 
 
 def test_amortized_part():
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=1000,
         interest_rate=0.05,
@@ -107,7 +111,7 @@ def test_amortized_part():
         first_payment_date=dt.date(2018, 1, 1),
     )
     a_loan = loan.amortized_part()
-    assert isinstance(a_loan, Loan)
+    assert isinstance(a_loan, pl.Loan)
     for k, v in a_loan.__dict__.items():
         if k == "kind":
             assert v == "amortized"
@@ -125,7 +129,7 @@ def test_amortized_part():
 
 def test_payments():
     # Interest only
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=100,
         interest_rate=0.12,
@@ -171,7 +175,7 @@ def test_payments():
     assert f["principal_payment"].iat[-1] == 100
 
     # Amortized
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=1000,
         interest_rate=0.05,
@@ -216,7 +220,7 @@ def test_payments():
     assert (abs(f["payment"] - 29.96) <= 0.015).all()
 
     # Combination
-    loan = Loan(
+    loan = pl.Loan(
         code="",
         principal=1000,
         interest_rate=0.05,
@@ -266,9 +270,9 @@ def test_payments():
 
 def test_read_loan():
     path = DATA_DIR / "good_loan_params.json"
-    loan = read_loan(path)
-    assert isinstance(loan, Loan)
+    loan = pl.read_loan(path)
+    assert isinstance(loan, pl.Loan)
 
     path = DATA_DIR / "bad_loan_params.json"
     with pytest.raises(vt.MultipleInvalid):
-        read_loan(path)
+        pl.read_loan(path)
