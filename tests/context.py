@@ -1,10 +1,11 @@
 import os
 import sys
 from pathlib import Path
-sys.path.insert(0, os.path.abspath('..'))
+
+sys.path.insert(0, os.path.abspath(".."))
 
 import payulator
 
 
-ROOT = Path(os.path.abspath('.'))
+ROOT = Path(os.path.abspath("."))
 DATA_DIR = ROOT / "tests" / "data"

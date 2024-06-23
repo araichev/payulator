@@ -166,16 +166,15 @@ def aggregate_payment_schedules(
     if not payment_schedules:
         raise ValueError("No payment schedules given to aggregate")
 
+    g = pd.concat(payment_schedules).filter(
+        ["payment_date", "principal_payment", "interest_payment", "fee_payment"]
+    )
+    if start_date is not None:
+        g = g.loc[lambda x: x["payment_date"] >= start_date]
+    if end_date is not None:
+        g = g.loc[lambda x: x["payment_date"] <= end_date]
     g = (
-        pd.concat(payment_schedules)
-        .filter(
-            ["payment_date", "principal_payment", "interest_payment", "fee_payment"]
-        )
-        # Slice
-        .set_index("payment_date")
-        .loc[start_date:end_date]
-        .reset_index()
-        .groupby(pd.Grouper(key="payment_date", freq=freq))
+        g.groupby(pd.Grouper(key="payment_date", freq=freq))
         .sum()
         .sort_index()
         .reset_index()

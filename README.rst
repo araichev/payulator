@@ -27,6 +27,12 @@ Will publish on Gitlab `here <https://araichev.gitlab.io/payulator_docs/>`_.
 Changes
 =======
 
+2.0.4, 2024-06-23
+-----------------
+- Fixed slicing in ``helpers.aggregate_payment_schedules``.
+- Updated dependencies.
+- Improved testing imports.
+
 2.0.3, 2024-02-08
 -----------------
 - Replaced 'monthly' in contract templates with payment frequency of loan contract.
